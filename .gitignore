@@ -1,6 +1,0 @@
-.env
-bin/
-tmp/
-.idea/
-.vscode/
-*.log

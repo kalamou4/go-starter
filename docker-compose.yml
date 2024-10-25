@@ -6,20 +6,21 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=postgres
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
-      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/auth_starter?sslmode=disable
     depends_on:
-      - postgres
+      - db
+    volumes:
+      - .:/app
+    command: sh -c "chmod +x scripts/migrate.sh && ./scripts/migrate.sh up && ./main"
 
-  postgres:
-    image: postgres:13
+  db:
+    image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=auth_starter
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
