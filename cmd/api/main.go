@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	_ "github.com/mattn/go-sqlite3"
 	"go-starter/internal/auth"
 	"go-starter/internal/config"
 	"go-starter/internal/database"
@@ -14,6 +15,11 @@ func main() {
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
+	}
+
+	err = config.RunMigrations(cfg.MigrationURL, cfg.DatabaseURL)
+	if err != nil {
+		log.Fatalf("Failed to run migrations: %v", err)
 	}
 
 	// Initialize database
