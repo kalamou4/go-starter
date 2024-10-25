@@ -36,8 +36,8 @@ A lightweight, secure authentication starter kit for Go applications using stand
 
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/go-auth-starter.git
-cd go-auth-starter
+git clone https://github.com/kalamou4/go-starter
+cd go-starter
 ```
 
 Install dependencies:
